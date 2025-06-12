@@ -1,0 +1,32 @@
+body{
+  background-color: white;
+}
+img{
+  margin: 10px;
+  width: 50%;
+}
+.search{
+  background-color: #2E073F;
+  color: white;
+}
+.quotesDiv{
+  border-radius: 20px;
+  margin: 10px;
+  background-color: #EBD3F8;
+}
+.quotes{
+   padding :11px; 
+   color: #2E073F; 
+   font-family:cursive;
+}
+
+.dropdown-search{
+  color: red;
+}
+
+button.search.disabled-btn {
+  background-color: #e0e0e0 !important;
+  color: #9e9e9e !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}

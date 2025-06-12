@@ -1,0 +1,116 @@
+<div *ngIf="trainDetails.length > 0">
+  <div *ngFor="let detail of trainDetails; let i = index" class="container">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="subHeading">
+            {{i + 1}}. Journey Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="content">
+          <div fxLayout="row" fxLayoutAlign="center center" class="heading"> Train Details </div>
+          <br>
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Train Number</div>
+              <br>
+              <div>{{detail.train.trainNumber}}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Train Name</div>
+              <br>
+              <div>{{detail.train.name}}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Train Type</div>
+              <br>
+              <div>{{detail.train.trainType}}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Booked Date</div>
+              <br>
+              <div>{{ detail.formattedBookingDate }}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Source Name</div>
+              <br>
+              <div>{{srcName }}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Destination Name</div>
+              <br>
+              <div>{{ desName}}</div>
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="content">
+          <div fxLayout="row" fxLayoutAlign="center center" class="heading"> Payment Details </div>
+          <br>
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Ticket Fee</div>
+              <br>
+              <div>{{detail.price}}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Additional Charge</div>
+              <br>
+              <div>{{detail.additionalCharge}}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <div class="subHeading">Total Fare</div>
+              <br>
+              <div>{{detail.totalFare}}</div>
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="content">
+          <div fxLayout="row" fxLayoutAlign="center center" class="heading"> Passenger Details </div>
+          <br>
+          <table mat-table [dataSource]="detail.people" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef class="tableHeading"> No. </th>
+              <td mat-cell *matCellDef="let element; let j = index" class="center"> {{j + 1}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="personName">
+              <th mat-header-cell *matHeaderCellDef class="tableHeading"> Name </th>
+              <td mat-cell *matCellDef="let element" class="center"> {{element.personName}} </td>
+            </ng-container>
+
+            <!-- Age Column -->
+            <ng-container matColumnDef="personAge">
+              <th mat-header-cell *matHeaderCellDef class="tableHeading"> Age </th>
+              <td mat-cell *matCellDef="let element" class="center"> {{element.personAge}} </td>
+            </ng-container>
+
+            <!-- Gender Column -->
+            <ng-container matColumnDef="gender">
+              <th mat-header-cell *matHeaderCellDef class="tableHeading"> Gender </th>
+              <td mat-cell *matCellDef="let element" class="center"> {{element.gender}} </td>
+            </ng-container>
+
+            <!-- Berth Choice Column -->
+            <ng-container matColumnDef="berthChoice">
+              <th mat-header-cell *matHeaderCellDef class="tableHeading"> Berth Choice </th>
+              <td mat-cell *matCellDef="let element" class="center"> {{element.berthChoice}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <br>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
+<div *ngIf="trainDetails.length === 0" class="center">
+  <img src="../../../assets/woman-8070373_1280.jpg">
+  <p>No journey history available.</p>
+</div>

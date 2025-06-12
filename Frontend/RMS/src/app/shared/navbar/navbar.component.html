@@ -1,0 +1,15 @@
+<!-- NavBar and its routing -->
+<mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="space-between center">
+  <div>
+    <p class="title">My Journey</p>
+  </div>
+  <div *ngIf="!isLoginPage()" fxlayoutGap="6px" fxLayout="row">
+    <div *ngFor="let menu of menuData">
+      <button mat-button [routerLink]="menu.routerlink">
+        {{ menu.label }}
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

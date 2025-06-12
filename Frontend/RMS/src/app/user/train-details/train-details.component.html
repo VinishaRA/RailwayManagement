@@ -1,0 +1,50 @@
+<!-- Source Name,Destination Name and Date of Journey  -->
+<div fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" class="path">
+    <div class="routes" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <mat-icon> train</mat-icon>
+      <h2>{{srcName}}</h2>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="6px">
+      <mat-icon color="accent"> arrow_right_alt</mat-icon>
+    </div>
+    <div class="routes" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <mat-icon> train</mat-icon>
+      <h2>{{desName}}</h2>
+    </div>
+    <div class="routes" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <mat-icon>calendar_today</mat-icon>
+      <h2>{{scheduleDate}}</h2>
+    </div>
+  </div>
+</div>
+<div *ngIf="errorMessage" fxLayoutAlign="center center">
+  <img class="notFoundImage" src="../../../assets/notFound.png" alt="">
+</div>
+<div class="container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" *ngIf="trainDetails">
+  <div class="train-details" fxLayout="column" *ngFor="let detail of trainDetails">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div>
+        <h2>{{ detail.TrainNumber }} - {{ detail.TrainName }} - {{detail.TrainType}}</h2>
+        <h4>DepartureTime : {{ detail.departureTime | date:'MMM d, h:mm a' }} - ArrivalTime : {{ detail.arrivalTime |
+          date:'MMM d, h:mma' }} </h4>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button class="routes" [routerLink]="['/booking']" [queryParams]="{
+          trainId: detail.trainId, 
+          srcName: srcName, 
+          desName: desName, 
+          scheduleDate: scheduleDate,
+          scheduleId: detail.scheduleId
+        }">Booking</button>
+        <button mat-raised-button class="routes" (click)="getStationStops(detail.trainId)">View</button>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+      <div class="seats" *ngFor="let seat of detail.seatsDetails">
+        <h3>Available Seats: {{ seat.className }} - {{ seat.availableSeats }}</h3>
+        <h3>Price: {{ seat.price || 'N/A' }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

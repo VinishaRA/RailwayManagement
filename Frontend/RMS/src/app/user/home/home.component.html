@@ -1,0 +1,50 @@
+<div fxLayout="column" fxLayoutAlign="space-between center">
+  <div fxLayoutAlign="center center">
+    <img src="../../../assets/train2.jpg" alt="TrainTravel">
+  </div>
+  <div>
+    <form [formGroup]="myForm" fxLayoutGap="20px">
+      <!-- Source  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Source</mat-label>
+        <mat-select formControlName="srcName" required>
+          <mat-option *ngFor="let station of sourceArray" [value]="station.stationName">
+            {{ station.stationName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="myForm.get('srcName')!.hasError('required') && myForm.get('srcName')!.touched">
+          Source is required
+        </mat-error>
+      </mat-form-field>
+      <!-- Destination  -->
+      <mat-form-field appearance="outline">
+        <mat-label>Destination</mat-label>
+        <mat-select formControlName="desName" required>
+          <mat-option *ngFor="let station of sourceArray" [value]="station.stationName">
+            {{ station.stationName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="myForm.get('desName')!.hasError('required') && myForm.get('desName')!.touched">
+          Destination is required
+        </mat-error>
+      </mat-form-field>
+      <!-- Date of Journey -->
+      <mat-form-field appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="scheduleDate" [matDatepickerFilter]="dateFilter">
+        <mat-error *ngIf="myForm.get('scheduleDate')!.hasError('required') && myForm.get('scheduleDate')!.touched">
+          Date of journey is required
+        </mat-error>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <!-- Search Icon -->
+      <button mat-raised-button class="search" [ngClass]="{'disabled-btn': myForm.invalid}" [disabled]="myForm.invalid"
+        (click)="getTrainDetails()">Search</button>
+    </form>
+  </div>
+</div>
+<!-- Quotes about Journey -->
+<div class="quotesDiv">
+  <h3 class="quotes">{{quotes}}</h3>
+</div>

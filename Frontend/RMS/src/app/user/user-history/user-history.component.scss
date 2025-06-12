@@ -1,0 +1,51 @@
+.heading {
+  font-size: larger;
+  font-family: cursive;
+  color: rgb(46, 7, 63);
+  background-color: rgb(235, 211, 248);
+  padding: 5px;
+}
+
+.subHeading {
+  font-size: large;
+  font-family: cursive;
+  color: #7A1CAC;
+  // border: 1px solid green;
+}
+
+.trainDetails {
+  // border: 1px solid red;
+  font-size: medium;
+  font-family: cursive;
+  color: #AD49E1;
+}
+
+.container {
+  border: 1px solid navy;
+  margin: 10px;
+}
+
+.content {
+  border: 1px solid #AD49E1;
+  padding: 6px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.center {
+  text-align: center;
+  font-family: cursive;
+  font-size: medium;
+  color: #7A1CAC;
+}
+
+.tableHeading {
+  text-align: center;
+  font-family: cursive;
+  font-size: large;
+  color: #AD49E1;
+}
+
+img {
+  width: 500px;
+}

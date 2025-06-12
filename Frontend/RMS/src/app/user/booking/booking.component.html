@@ -1,0 +1,359 @@
+<mat-tab-group class="group">
+  <!-- Train details -->
+  <mat-tab label="Train Details">
+    <form [formGroup]="myForm1" class="form">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <!-- Train Number -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Train Number</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="trainNumber" matInput [value]="trainDetails?.trainNumber" readonly>
+          </mat-form-field>
+        </div>
+        <!-- Train Name -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Train Name</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="trainName" matInput [value]="trainDetails?.name" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+        <!-- Train Class Type Dropdown -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Class Type</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <mat-select formControlName="classType" (selectionChange)="onClassTypeChange($event.value)">
+              <mat-option *ngFor="let price of trainDetails?.prices" [value]="price">
+                {{ price?.classType }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="myForm1?.get('classType')?.hasError('required')">
+              ClassType is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- Price Field -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Price</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="price" matInput [value]="selectedPrice" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+        <!-- Src Name -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Journey From</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="srcName" matInput [value]="srcName" readonly>
+          </mat-form-field>
+        </div>
+
+        <!-- Des Name-->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Journey To</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="desName" matInput [value]="desName" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- scheduleDate -->
+      <div fxLayout="row" fxLayoutGap="10px" class="date">
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Schedule Date</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="scheduleDate" matInput [value]="scheduleDate" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+  <!-- Person details -->
+  <mat-tab label="Person Details">
+    <form [formGroup]="myForm2" class="form">
+      <div formArrayName="persons">
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button (click)="addPerson()" class="button1">
+            Add Person</button>
+        </div>
+        <div *ngFor="let person of persons().controls; let i = index" [formGroupName]="i">
+          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+            <!-- Person Name -->
+            <div fxLayout="row" fxLayoutGap="10px" class="field">
+              <div fxFlex="45%">
+                <div class="label">
+                  <mat-label>Person Name</mat-label>
+                </div>
+              </div>
+              <mat-form-field appearance="outline" fxFlex="50%" class="input">
+                <input matInput formControlName="personName">
+                <mat-error *ngIf="person.get('personName')?.hasError('required')">
+                  Person Name is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Person Age -->
+            <div fxLayout="row" fxLayoutGap="10px" class="field">
+              <div fxFlex="45%">
+                <div class="label">
+                  <mat-label>Person Age</mat-label>
+                </div>
+              </div>
+              <mat-form-field appearance="outline" fxFlex="50%" class="input">
+                <input matInput formControlName="personAge">
+                <mat-error *ngIf="person.get('personAge')?.hasError('required')">
+                  Person Age is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+            <!-- Gender -->
+            <div fxLayout="row" fxLayoutGap="10px" class="field">
+              <div fxFlex="45%">
+                <div class="label">
+                  <mat-label>Gender</mat-label>
+                </div>
+              </div>
+              <mat-form-field appearance="outline" fxFlex="50%" class="input">
+                <mat-select formControlName="gender">
+                  <mat-option value="Female">Female</mat-option>
+                  <mat-option value="Male">Male</mat-option>
+                  <mat-option value="Transgender">Transgender</mat-option>
+                </mat-select>
+                <mat-error *ngIf="person.get('gender')?.hasError('required')">
+                  Gender is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Berth Choice -->
+            <div fxLayout="row" fxLayoutGap="10px" class="field">
+              <div fxFlex="45%">
+                <div class="label">
+                  <mat-label>Berth Choice</mat-label>
+                </div>
+              </div>
+              <mat-form-field appearance="outline" fxFlex="50%" class="input">
+                <mat-select formControlName="berthChoice">
+                  <mat-option value="Upper">Upper</mat-option>
+                  <mat-option value="Middle">Middle</mat-option>
+                  <mat-option value="Lower">Lower</mat-option>
+                </mat-select>
+                <mat-error *ngIf="person.get('berthChoice')?.hasError('required')">
+                  Berth Choice is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Button-->
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button (click)="removePerson(i)" class="button2">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+  <!-- Account details -->
+  <mat-tab label="Account Details">
+    <form [formGroup]="myForm3" class="form">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <!-- Account Number -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Account Number</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="accountNumber" matInput>
+            <mat-error *ngIf="myForm3.get('accountNumber')?.hasError('required')">
+              Account Number is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- Bank Name -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Bank Name</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="bankName" matInput>
+            <mat-error *ngIf="myForm3.get('bankName')?.hasError('required')">
+              BankName is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+        <!-- Account holder name -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Account Holder Name</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="accountHolderName" matInput>
+            <mat-error *ngIf="myForm3.get('accountHolderName')?.hasError('required')">
+              AccHolderName is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Ifsc code -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>IFSC Code</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="ifscCode" matInput>
+            <mat-error *ngIf="myForm3.get('ifscCode')?.hasError('required')">
+              IFSC Code is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-evenly center">
+        <!-- Phone Number -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Phone Number</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="phoneNumber" matInput>
+            <mat-error *ngIf="myForm3.get('phoneNumber')?.hasError('required')">
+              Phone Number is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Email</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="email" matInput>
+            <mat-error *ngIf="myForm3.get('email')?.hasError('required')">
+              Email is required!
+            </mat-error>
+            <mat-error *ngIf="myForm3.get('email')?.hasError('email') && !myForm3.get('email')?.hasError('required')">
+              Please enter a valid email address!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+  <!-- Payment details -->
+  <mat-tab label="Payment Details">
+    <form [formGroup]="myForm4" class="form">
+      <div fxLayout="column" fxLayoutAlign="space-evenly center">
+        <!-- Person Counts -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Person Counts </mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="personsCount" matInput readonly>
+          </mat-form-field>
+        </div>
+        <!-- Class Type -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Class Type </mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="classType" matInput readonly>
+          </mat-form-field>
+        </div>
+        <!-- Price -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Price</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="price" matInput readonly>
+          </mat-form-field>
+        </div>
+        <!-- Online Charge -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Additional Charge</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="additionalCharge" matInput readonly>
+          </mat-form-field>
+        </div>
+        <!-- Total -->
+        <div fxLayout="row" fxLayoutGap="10px" class="field">
+          <div fxFlex="45%">
+            <div class="label">
+              <mat-label>Total</mat-label>
+            </div>
+          </div>
+          <mat-form-field appearance="outline" fxFlex="50%" class="input">
+            <input formControlName="totalFare" matInput readonly>
+          </mat-form-field>
+        </div>
+        <div fxLayoutGap="10px">
+          <button class="button1" mat-button (click)="submitForm()">Book Now</button>
+          <button class="button2" mat-button [routerLink]="'/home'">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+</mat-tab-group>

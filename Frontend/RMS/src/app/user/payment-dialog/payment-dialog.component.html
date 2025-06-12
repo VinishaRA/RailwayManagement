@@ -1,0 +1,14 @@
+<div class="container" fxLayoutGap="2px">
+  <div fxLayoutAlign="center center" fxLayoutGap="5px" class="content">
+    <div fxFlex="52" fxLayoutAlign="end center">Payment Date : </div>
+    <div fxFlex="48" fxLayoutAlign="start center">{{todayDate}}</div>
+  </div>
+  <div fxLayoutAlign="center center" fxLayoutGap="5px" class="content">
+    <div fxFlex="52" fxLayoutAlign="end center">Amount : </div>
+    <div fxFlex="48" fxLayoutAlign="start center">{{data.amount}}</div>
+  </div>
+  <div fxLayoutAlign="center center" fxLayoutGap="5px" class="content">
+    <button mat-button (click)="createPayment()" class="pay">Pay</button>
+    <button mat-button (click)="closeDialog()" class="close">Close</button>
+  </div>
+</div>
